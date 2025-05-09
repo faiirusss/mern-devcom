@@ -1,4 +1,6 @@
 import { signOut } from "firebase/auth";
+import { Link, useNavigate } from "react-router-dom";
+import { auth } from "../../utils/firebase";
 import {
   Avatar,
   AvatarFallback,
@@ -9,16 +11,14 @@ import {
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from "../ui/dropdown-menu";
-import { auth } from "../../utils/firebase";
-import { useNavigate } from "react-router-dom";
 import { Button } from "./button";
 
 const Profile = ({setToken, setEmailStorage, user}) => {
-    const navigate = useNavigate()
+  const username = user.email.split("@")[0];
+  const navigate = useNavigate()
 
     return (
         <DropdownMenu>
@@ -31,7 +31,9 @@ const Profile = ({setToken, setEmailStorage, user}) => {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-48" >
-            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <Link to={`/${username}`}>
+              <DropdownMenuItem>{username}</DropdownMenuItem>
+            </Link>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem>Dashboard</DropdownMenuItem>
