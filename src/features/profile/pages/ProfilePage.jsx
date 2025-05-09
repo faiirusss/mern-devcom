@@ -12,11 +12,13 @@ import { Button } from "../../../components/ui/button"
 
 const ProfilePage = () => {
     const [user] = useAuthState(auth)
+    if (!user) {
+        return <p className="text-center mt-10">Loading or not logged in...</p>; // atau redirect ke login jika perlu
+    }
     const username = user.email.split("@")[0];
 
     return (
         <PageContainer withFooter={false}>
-            
             <div className="bg-foreground w-full h-32 relative">
                 <Avatar className="absolute top-0 left-1/2 -translate-x-1/2 border-foreground border-8 size-32 z-10 mt-2">
                     <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
@@ -38,7 +40,6 @@ const ProfilePage = () => {
                     </div>
                 </SectionContainer>
             </div>
-            
         </PageContainer>
     )
 }
