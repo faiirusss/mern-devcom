@@ -51,7 +51,9 @@ const LoginPage =  () => {
               <Card className="w-full max-w-[480px] self-center border-none shadow-none">
                 <CardHeader className="flex flex-col items-center justify-center">
                   {/* icon */}
-                  <h1 className="text-3xl font-bold text-background bg-foreground px-3 py-1 rounded-md mb-10">DEV</h1>
+                  <Link to={"/"}>
+                    <h1 className="text-3xl font-bold text-background bg-foreground px-3 py-1 rounded-md mb-10">DEV</h1>
+                  </Link>
 
                   <h1 className="text-2xl font-bold text-primary">
                   Join the DEV Community 👋

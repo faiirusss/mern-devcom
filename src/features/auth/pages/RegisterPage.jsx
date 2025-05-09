@@ -45,7 +45,9 @@ const RegisterPage = () => {
           <Card className="w-full max-w-[480px] self-center border-none shadow-none">
             <CardHeader className="flex flex-col items-center justify-center mb-5">
               {/* icon */}
-              <h1 className="text-3xl font-bold text-background bg-foreground px-3 py-1 rounded-md">DEV</h1>
+              <Link to={"/"}>
+                <h1 className="text-3xl font-bold text-background bg-foreground px-3 py-1 rounded-md">DEV</h1>
+              </Link>
             </CardHeader>
             <CardContent>
               <div className="text-center mb-5">

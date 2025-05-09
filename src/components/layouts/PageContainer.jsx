@@ -1,17 +1,8 @@
 import { cn } from "@/lib/utils";
 import { Header } from "./Header";
-import { useAuthState} from "react-firebase-hooks/auth"
-import { auth } from "../../utils/firebase";
 
 
 export const PageContainer = (({ className, children, withHeader = true, withFooter = true, ...props },ref,) => {
-    const [user, loading, error] = useAuthState(auth)
-
-    // if(loading) return <p>loading...</p>
-
-    // if(error) return <p>error...</p>
-
-    // if(!user) return location.replace("/")
 
     return (
       <div className="h-full w-full">
