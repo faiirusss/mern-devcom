@@ -9,7 +9,7 @@ export const SectionContainer = (({ className, children, padded, containerClassN
       <section
         ref={ref}
         className={cn(
-          "container flex flex-col lg:max-w-screen-md",
+          "container flex flex-col",
           props.minFullscreen &&
             "flex min-h-[calc(100vh-144px)] w-full flex-col",
           className,
