@@ -14,7 +14,6 @@ import { useState } from "react"
 const ProfilePage = () => {
     const [user] = useAuthState(auth)
     const [moreInfo, setMoreInfo] = useState(false)
-    console.log(moreInfo)
     if (!user) {
         return <p className="text-center mt-10">Loading or not logged in...</p>; // atau redirect ke login jika perlu
     }
@@ -38,7 +37,7 @@ const ProfilePage = () => {
                         <p>404 bio not found</p>
                         <p className="text-sm mt-4 flex items-center gap-2"><FaBirthdayCake size={20}/> Joined on Jun 25, 2024 <FaGithub size={20}/></p>
                     </div>
-                    <Button className={`${moreInfo ? 'hidden' : ''} relative top-12`} variant={"outline"} onClick={() => setMoreInfo(true)}>More info about {username}</Button>
+                    <Button className={`${moreInfo ? 'hidden relative top-12' : 'block md:hidden relative top-12'}`} variant={"outline"} onClick={() => setMoreInfo(true)}>More info about {username}</Button>
                     <div className={`${moreInfo ? 'bg-background md:block absolute -bottom-38 md:max-w-1/3 w-full left-0 rounded-md px-4' : 'bg-background hidden md:block absolute -bottom-38 max-w-1/3 w-full left-0 rounded-md px-4'}`}>
                         <div className="flex flex-col space-y-4 py-4 text-foreground/80">
                             <p className="flex items-center gap-2"><IoNewspaperOutline size={20}/>0 posts published</p>
