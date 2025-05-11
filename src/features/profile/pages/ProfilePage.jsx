@@ -1,23 +1,22 @@
-import { useAuthState } from "react-firebase-hooks/auth"
+import { useAtom } from "jotai"
+import { useState } from "react"
+import { CiHashtag } from "react-icons/ci"
+import { FaBirthdayCake, FaGithub } from "react-icons/fa"
+import { IoChatboxOutline, IoNewspaperOutline } from "react-icons/io5"
+import { Link } from "react-router-dom"
 import { PageContainer } from "../../../components/layouts/PageContainer"
 import { SectionContainer } from "../../../components/layouts/SectionContainer"
 import { Avatar, AvatarFallback, AvatarImage } from "../../../components/ui/avatar"
-import { auth } from "../../../utils/firebase"
-import { IoNewspaperOutline } from "react-icons/io5";
-import { IoChatboxOutline } from "react-icons/io5";
-import { FaGithub } from "react-icons/fa";
-import { FaBirthdayCake } from "react-icons/fa";
-import { CiHashtag } from "react-icons/ci";
 import { Button } from "../../../components/ui/button"
-import { useState } from "react"
+import { emailStorageAtom } from "../../../jotai/atoms"
 
 const ProfilePage = () => {
-    const [user] = useAuthState(auth)
+    const [email,] = useAtom(emailStorageAtom)
     const [moreInfo, setMoreInfo] = useState(false)
-    if (!user) {
+    if (!email) {
         return <p className="text-center mt-10">Loading or not logged in...</p>; // atau redirect ke login jika perlu
     }
-    const username = user.email.split("@")[0];
+    const username = email.split("@")[0];
 
     return (
         <PageContainer withFooter={false}>
@@ -29,11 +28,12 @@ const ProfilePage = () => {
                 <SectionContainer 
                     padded 
                     className={`${moreInfo ? 'flex absolute bg-background md:rounded-md top-10 md:top-18 left-1/2 -translate-x-1/2 h-[208px] md:h-[255px] w-full max-w-[992px] lg:px-0 flex-col justify-center' 
-                                : 'flex absolute bg-background md:rounded-md top-10 md:top-18 left-1/2 -translate-x-1/2 h-72 md:h-[255px] w-full max-w-[992px] lg:px-0 flex-col justify-center'} `}
->
-                    <Button className="absolute top-6 right-6">Edit Profile</Button>
+                                : 'flex absolute bg-background md:rounded-md top-10 md:top-18 left-1/2 -translate-x-1/2 h-72 md:h-[255px] w-full max-w-[992px] lg:px-0 flex-col justify-center'} `}>
+                    <Link to={"/settings"}>
+                        <Button className="absolute top-6 right-6 cursor-pointer">Edit Profile</Button>
+                    </Link>                                    
                     <div className="flex flex-col gap-2 justify-center md:items-center md:mt-12">
-                        <h1 className="text-2xl md:text-3xl font-extrabold">{username}</h1>
+                        {/* <h1 className="text-2xl md:text-3xl font-extrabold">{username}</h1> */}
                         <p>404 bio not found</p>
                         <p className="text-sm mt-4 flex items-center gap-2"><FaBirthdayCake size={20}/> Joined on Jun 25, 2024 <FaGithub size={20}/></p>
                     </div>

@@ -7,6 +7,7 @@ import LoginPage from './pages/Login'
 import RegisterPage from './pages/Register'
 import HomePage from './pages/Home'
 import ProfilePage from './pages/Profile'
+import SettingPage from './pages/Settings'
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: "/:username",
     element: <ProfilePage/>
+  },
+  {
+    path: "/settings",
+    element: <SettingPage/>
   }
 ])
 
