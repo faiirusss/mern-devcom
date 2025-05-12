@@ -8,15 +8,20 @@ import {
 } from "@/components/ui/form"
 import { RegisterFormInner } from "../components/RegisterFormInner";
 import { Button } from "../../../components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../utils/firebase";
 import { registerFormSchema } from "../forms/register";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { apiInstanExpress } from "../../../utils/apiInstance";
+import { toast } from "sonner";
 
 
 const RegisterPage = () => {
+  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
+
   const form = useForm({
     resolver: zodResolver(registerFormSchema),
     defaultValues: {
@@ -24,18 +29,37 @@ const RegisterPage = () => {
       password: "",
     },
   });
-  const [loading, setLoading] = useState()
+  
   const handleRegisterSubmit = async (values) => {
-    setLoading(true);
+
     try {
-      await createUserWithEmailAndPassword(auth, values.email, values.password);
-      alert("Registrasi berhasil!");
-      form.reset();
+      setLoading(true);
+      const {email, password} = values
+      const register = await createUserWithEmailAndPassword(auth, email, password);
+      if(register) {
+        const newUser = await apiInstanExpress.post('register', {email, password})
+
+        if(newUser.status === 201) {
+          toast.success("Account has been created!", {
+            position: "top-right"
+          })
+          setTimeout(() => {
+            form.reset();
+            navigate("/login")
+          }, 1000)
+        }
+      }
     } catch (error) {
-      alert("Gagal: " + error.message);
+        const message = error.code === "auth/email-already-in-use"
+          ? "Email sudah digunakan."
+          : error.message;
+        toast(message);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
+    
   };
+
   return (
       <PageContainer withHeader={false} withFooter={false}>
         <SectionContainer

@@ -8,6 +8,7 @@ import RegisterPage from './pages/Register'
 import HomePage from './pages/Home'
 import ProfilePage from './pages/Profile'
 import SettingPage from './pages/Settings'
+import { Toaster } from 'sonner'
 
 const router = createBrowserRouter([
   {
@@ -35,5 +36,6 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <RouterProvider router={router}/>
+    <Toaster />
   </StrictMode>,
 )

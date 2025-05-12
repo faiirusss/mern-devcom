@@ -14,6 +14,8 @@ import { auth } from "../../../utils/firebase";
 import { useNavigate } from "react-router-dom";
 import { emailStorageAtom, tokenAtom } from "../../../jotai/atoms";
 import { useAtom } from "jotai";
+import { apiInstanExpress } from "../../../utils/apiInstance";
+import { toast } from "sonner";
 
 
 const LoginPage =  () => {
@@ -27,21 +29,31 @@ const LoginPage =  () => {
     });
 
     const handleLoginSubmit = async (values) => {
-        try {
-            const login = await signInWithEmailAndPassword(auth, values.email, values.password);
-            if(login) {
-              const firebaseToken = await getIdToken(login.user);
-              setToken(firebaseToken)
-              setEmailStorage(login.user.email)
-              alert("Login berhasil!");
-              navigate("/");
-            }
-        
-          } catch (error) {
-            console.error("Login gagal:", error.message);
-            alert("Login gagal: " + error.message);
-          }
-      };
+      try {
+        const {email, password} = values
+        const login = await signInWithEmailAndPassword(auth, email, password);
+        const firebaseToken = await getIdToken(login.user);
+
+        const addToken = await apiInstanExpress.post("/login", {email, password, token: firebaseToken })
+
+        if(addToken.status === 200) {
+          setToken(firebaseToken)
+          setEmailStorage(login.user.email)
+          toast.success("Login Success!", {
+            position: "top-right"
+          });
+          
+          setTimeout(() =>{
+            navigate("/");
+          }, 1000)
+        }
+    
+      } catch (error) {
+        toast.error(`Login Failed: ${error.code}`, {
+          position: "top-right"
+        });
+      }
+    };
     return (
           <PageContainer withHeader={false} withFooter={false}>
             <SectionContainer
