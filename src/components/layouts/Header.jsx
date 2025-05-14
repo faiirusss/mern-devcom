@@ -9,12 +9,16 @@ import { Input } from "../ui/input";
 import Profile from "../ui/profile";
 import { SidebarProvider, SidebarTrigger } from "../ui/sidebar";
 import { AppSidebar } from "./AppSidebar";
+import { Loading } from "./Loading";
 
 export const Header = () => {
-  const [user] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
 
   const [, setToken] = useAtom(tokenAtom);
   const [, setEmailStorage] = useAtom(emailStorageAtom);
+
+  if (loading) return <Loading />;
+
   return (
     <SidebarProvider defaultOpen={false}>
       <header className="flex fixed top-0 z-50 h-16 items-center justify-between border-b-1 border-border bg-background px-4 lg:h-14 2xl:px-72 w-full overflow-x-hidden">
