@@ -25,7 +25,11 @@ import {
 import { Input } from "../../../components/ui/input";
 import { Label } from "../../../components/ui/label";
 import { Textarea } from "../../../components/ui/textarea";
-import { emailStorageAtom, tokenAtom } from "../../../jotai/atoms";
+import {
+  emailStorageAtom,
+  tokenAtom,
+  usernameStorage,
+} from "../../../jotai/atoms";
 import { profileFormSchema } from "../../../schemas/profile";
 import { apiInstanExpress } from "../../../utils/apiInstance";
 
@@ -44,6 +48,7 @@ const SettingPage = () => {
 
   const [emailStorage] = useAtom(emailStorageAtom);
   const [token] = useAtom(tokenAtom);
+  const [, setUsernameStorage] = useAtom(usernameStorage);
   const [profile, setProfile] = useState([]);
   const [isSubmit, setIsSubmit] = useState(false);
 
@@ -87,6 +92,7 @@ const SettingPage = () => {
           token: token,
           data: values,
         });
+        setUsernameStorage(values.username);
 
         if (updateProfile.status !== 201) {
           toast.error("Update profile failed!", {

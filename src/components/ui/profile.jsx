@@ -30,7 +30,9 @@ const Profile = ({ setToken, setEmailStorage, user }) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-50">
         <Link to={`/${username}`}>
-          <DropdownMenuItem>@{username}</DropdownMenuItem>
+          <DropdownMenuItem>
+            <span className="truncate">@{username}</span>
+          </DropdownMenuItem>
         </Link>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
