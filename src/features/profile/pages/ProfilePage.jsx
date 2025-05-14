@@ -1,8 +1,9 @@
 import { useAtom } from "jotai";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CiHashtag } from "react-icons/ci";
 import { FaBirthdayCake, FaGithub } from "react-icons/fa";
 import { IoChatboxOutline, IoNewspaperOutline } from "react-icons/io5";
+import AuthRoute from "../../../components/layouts/AuthRoute";
 import { PageContainer } from "../../../components/layouts/PageContainer";
 import { SectionContainer } from "../../../components/layouts/SectionContainer";
 import {
@@ -11,12 +12,40 @@ import {
   AvatarImage,
 } from "../../../components/ui/avatar";
 import { Button } from "../../../components/ui/button";
-import { usernameStorage } from "../../../jotai/atoms";
-import AuthRoute from "../../../components/layouts/AuthRoute";
+import {
+  createdAt,
+  emailStorageAtom,
+  tokenAtom,
+  usernameStorage,
+} from "../../../jotai/atoms";
+import { apiInstanExpress } from "../../../utils/apiInstance";
 
 const ProfilePage = () => {
   const [username] = useAtom(usernameStorage);
+  const [emailStorage] = useAtom(emailStorageAtom);
+  const [token] = useAtom(tokenAtom);
+  const [createdAtAtom] = useAtom(createdAt);
+  const [profile, setProfile] = useState([]);
   const [moreInfo, setMoreInfo] = useState(false);
+
+  const handleGetUserProfile = async () => {
+    try {
+      const url = `settings/${emailStorage}/${token}`;
+      const getProfile = await apiInstanExpress.get(url);
+      if (getProfile.status === 200) return getProfile.data;
+    } catch (error) {
+      return error;
+    }
+  };
+
+  useEffect(() => {
+    if (emailStorage && token) {
+      handleGetUserProfile().then((result) => {
+        setProfile(result.data);
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [emailStorage, token]);
 
   return (
     <AuthRoute>
@@ -43,9 +72,9 @@ const ProfilePage = () => {
               <h1 className="text-2xl md:text-3xl font-extrabold">
                 {username}
               </h1>
-              <p>404 bio not found</p>
-              <p className="text-sm mt-4 flex items-center gap-2">
-                <FaBirthdayCake size={20} /> Joined on Jun 25, 2024{" "}
+              <p>{profile.bio ? profile.bio : "404 bio not found"}</p>
+              <p className="text-sm mt-4 flex items-center gap-2 text-foreground/70">
+                <FaBirthdayCake size={20} /> Joined on {createdAtAtom}{" "}
                 <FaGithub size={20} />
               </p>
             </div>

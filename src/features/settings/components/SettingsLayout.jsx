@@ -11,8 +11,8 @@ const SettingLayout = () => {
   return (
     <AuthRoute>
       <PageContainer className="h-5" withFooter={false}>
-        <SectionContainer padded className="w-full mx-auto max-w-5xl mt-7">
-          <div className="grid grid-cols-4 grid-rows gap-4">
+        <SectionContainer padded className="w-full mx-auto max-w-5xl mt-4">
+          <div className="md:grid grid-cols-4 grid-rows gap-4">
             <SidebarNav />
             <div className="col-span-3 relative mb-5">
               {isSetting ? <SettingPage /> : <Outlet />}

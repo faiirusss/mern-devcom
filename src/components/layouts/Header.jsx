@@ -21,13 +21,9 @@ export const Header = () => {
 
   return (
     <SidebarProvider defaultOpen={false}>
-      <header className="flex fixed top-0 z-50 h-16 items-center justify-between border-b-1 border-border bg-background px-4 lg:h-14 2xl:px-72 w-full overflow-x-hidden">
+      <header className="flex fixed top-0 z-50 h-14 items-center justify-between border-b-1 border-border bg-background px-4 lg:h-14 2xl:px-72 w-full overflow-x-hidden">
         <div className="flex items-center gap-4">
-          <SidebarTrigger className="block md:hidden">
-            <Button variant="ghost" size="icon" className="block sm:hidden">
-              <FaBars />
-            </Button>
-          </SidebarTrigger>
+          <SidebarTrigger className="block md:hidden" />
           <AppSidebar />
           <Link
             to={"/"}

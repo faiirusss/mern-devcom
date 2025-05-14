@@ -1,14 +1,33 @@
+import { useState } from "react";
 import { FcManager, FcPrivacy } from "react-icons/fc";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 const SidebarNav = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const isProfileActive =
     location.pathname === "/settings" ||
     location.pathname === "/settings/profile";
+
+  const [selected, setSelected] = useState("");
+
+  const handleSelectChange = (e) => {
+    setSelected(e.target.value);
+    navigate(e.target.value);
+  };
   return (
     <div className="">
-      <div className="flex flex-col">
+      <div className="md:hidden mb-8">
+        <select
+          value={selected}
+          onChange={handleSelectChange}
+          className="w-full rounded-md bg-white border border-gray-300"
+        >
+          <option value="/settings/profile">Profile</option>
+          <option value="/settings/account">Account</option>
+        </select>
+      </div>
+      <div className="hidden md:flex flex-col">
         <NavLink
           to="/settings/profile"
           className={
