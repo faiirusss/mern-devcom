@@ -12,7 +12,7 @@ import { registerFormSchema } from "../forms/register";
 import { getIdToken, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../utils/firebase";
 import { useNavigate } from "react-router-dom";
-import { emailStorageAtom, tokenAtom } from "../../../jotai/atoms";
+import { emailStorageAtom, tokenAtom, usernameStorage } from "../../../jotai/atoms";
 import { useAtom } from "jotai";
 import { apiInstanExpress } from "../../../utils/apiInstance";
 import { toast } from "sonner";
@@ -23,6 +23,7 @@ const LoginPage =  () => {
 
     const [, setToken] = useAtom(tokenAtom)
     const [, setEmailStorage] = useAtom(emailStorageAtom)
+    const [, setUsername] = useAtom(usernameStorage)
 
     const form = useForm({
         resolver: zodResolver(registerFormSchema),
@@ -34,11 +35,12 @@ const LoginPage =  () => {
         const login = await signInWithEmailAndPassword(auth, email, password);
         const firebaseToken = await getIdToken(login.user);
 
-        const addToken = await apiInstanExpress.post("/login", {email, password, token: firebaseToken })
+        const addToken = await apiInstanExpress.post("/login", {email, password, token: firebaseToken })              
 
         if(addToken.status === 200) {
           setToken(firebaseToken)
           setEmailStorage(login.user.email)
+          setUsername(addToken.data.data)
           toast.success("Login Success!", {
             position: "top-right"
           });

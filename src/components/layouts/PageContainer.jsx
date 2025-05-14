@@ -5,7 +5,7 @@ import { Header } from "./Header";
 export const PageContainer = (({ className, children, withHeader = true, withFooter = true, ...props },ref,) => {
 
     return (
-      <div className="h-full w-full">
+      <div className="h-full w-full pt-14">
         {withHeader && <Header />}
         <main ref={ref} className={cn("flex flex-col", className)} {...props}>
           {children}

@@ -11,20 +11,17 @@ import { SidebarProvider, SidebarTrigger } from "../ui/sidebar";
 import { AppSidebar } from "./AppSidebar";
 
 export const Header = () => {
-  const [user] = useAuthState(auth)
+  const [user] = useAuthState(auth);
 
   const [, setToken] = useAtom(tokenAtom);
-  const [, setEmailStorage] = useAtom(emailStorageAtom)
-
-
-
+  const [, setEmailStorage] = useAtom(emailStorageAtom);
   return (
     <SidebarProvider defaultOpen={false}>
-      <header className="flex h-16 items-center justify-between border-b-1 border-border bg-background px-4 lg:h-14 2xl:px-72 w-full overflow-x-hidden">
+      <header className="flex fixed top-0 z-50 h-16 items-center justify-between border-b-1 border-border bg-background px-4 lg:h-14 2xl:px-72 w-full overflow-x-hidden">
         <div className="flex items-center gap-4">
           <SidebarTrigger className="block md:hidden">
             <Button variant="ghost" size="icon" className="block sm:hidden">
-              <FaBars/>
+              <FaBars />
             </Button>
           </SidebarTrigger>
           <AppSidebar />
@@ -35,47 +32,48 @@ export const Header = () => {
             DEV
           </Link>
           <div className="relative w-full hidden md:block">
-            <Button className="absolute top-1/2 -translate-y-1/2 left-[2px] cursor-pointer" variant={"ghost"} size="icon">
+            <Button
+              className="absolute top-1/2 -translate-y-1/2 left-[2px] cursor-pointer"
+              variant={"ghost"}
+              size="icon"
+            >
               <FaSearch />
             </Button>
-            <Input 
-              className="pl-9 w-96 rounded-sm"
-              placeholder="Search..."
-            />
+            <Input className="pl-9 w-96 rounded-sm" placeholder="Search..." />
           </div>
         </div>
         <div className="flex items-center gap-3">
           {!user ? (
-          <>
-            <Link to={"/login"}>
-              <Button variant={"ghost"} className="cursor-pointer">Login</Button>
-            </Link>
-            <Link to={"/register"}>
-              <Button variant={"outline"} className="cursor-pointer">Create Account</Button>
-            </Link>
-          </>
-          )
-          : (
-          <>
-          <Button className="block md:hidden" variant={"ghost"}>
-            <FaSearch />
-          </Button>
-          <Button className="hidden md:block">Create Post</Button>
-          <Button variant={"ghost"} size="icon">
-            <FaRegBell className="size-5"/>
-          </Button>
-            <Profile
-              user={user}
-              setToken={setToken}
-              setEmailStorage={setEmailStorage}
-            />
-          </>
-          )
-          }
-          
+            <>
+              <Link to={"/login"}>
+                <Button variant={"ghost"} className="cursor-pointer">
+                  Login
+                </Button>
+              </Link>
+              <Link to={"/register"}>
+                <Button variant={"outline"} className="cursor-pointer">
+                  Create Account
+                </Button>
+              </Link>
+            </>
+          ) : (
+            <>
+              <Button className="block md:hidden" variant={"ghost"}>
+                <FaSearch />
+              </Button>
+              <Button className="hidden md:block">Create Post</Button>
+              <Button variant={"ghost"} size="icon">
+                <FaRegBell className="size-5" />
+              </Button>
+              <Profile
+                user={user}
+                setToken={setToken}
+                setEmailStorage={setEmailStorage}
+              />
+            </>
+          )}
         </div>
       </header>
     </SidebarProvider>
-    
-  ) 
+  );
 };
