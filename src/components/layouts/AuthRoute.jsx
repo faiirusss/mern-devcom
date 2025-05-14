@@ -10,7 +10,6 @@ const AuthRoute = ({ children }) => {
   if (error) return <p>Error...</p>;
 
   if (!user) return location.replace("/");
-  console.log(user);
 
   return <div>{children}</div>;
 };

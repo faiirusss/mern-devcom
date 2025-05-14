@@ -39,7 +39,9 @@ const Profile = ({ setToken, setEmailStorage, user }) => {
           <DropdownMenuItem>Dashboard</DropdownMenuItem>
           <DropdownMenuItem>Create Post</DropdownMenuItem>
           <DropdownMenuItem>Reading List</DropdownMenuItem>
-          <DropdownMenuItem>Settings</DropdownMenuItem>
+          <Link to="/settings">
+            <DropdownMenuItem>Settings</DropdownMenuItem>
+          </Link>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem

@@ -1,41 +1,57 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import {createBrowserRouter, RouterProvider} from "react-router-dom"
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
 
-import LoginPage from './pages/Login'
-import RegisterPage from './pages/Register'
-import HomePage from './pages/Home'
-import ProfilePage from './pages/Profile'
-import SettingPage from './pages/Settings'
-import { Toaster } from 'sonner'
+import LoginPage from "./pages/Login";
+import RegisterPage from "./pages/Register";
+import HomePage from "./pages/Home";
+import ProfilePage from "./pages/Profile";
+import SettingPage from "./pages/Settings";
+import { Toaster } from "sonner";
+import AccountPages from "./pages/Settings/Account";
+import SettingLayout from "./features/settings/components/SettingsLayout";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomePage/>
+    element: <HomePage />,
   },
   {
     path: "/login",
-    element: <LoginPage/>
+    element: <LoginPage />,
   },
   {
     path: "/register",
-    element: <RegisterPage/>
+    element: <RegisterPage />,
   },
   {
     path: "/:username",
-    element: <ProfilePage/>
+    element: <ProfilePage />,
   },
   {
     path: "/settings",
-    element: <SettingPage/>
-  }
-])
+    element: <SettingLayout />,
+    children: [
+      {
+        path: "profile",
+        element: <SettingPage />,
+      },
+      {
+        path: "account",
+        element: <AccountPages />,
+      },
+    ],
+  },
+]);
 
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router}/>
+    <RouterProvider router={router} />
     <Toaster />
-  </StrictMode>,
-)
+  </StrictMode>
+);
