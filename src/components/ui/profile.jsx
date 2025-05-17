@@ -23,7 +23,10 @@ const Profile = ({ setToken, setEmailStorage, user }) => {
       <DropdownMenuTrigger asChild>
         <Button variant="disable" size={"icon"}>
           <Avatar>
-            <AvatarImage src={user.photoURL ?? ""} alt={user.email ?? ""} />
+            <AvatarImage
+              src={user.photoURL ?? "https://github.com/shadcn.png"}
+              alt={user.email ?? ""}
+            />
             <AvatarFallback>{user.email?.[0].toUpperCase()}</AvatarFallback>
           </Avatar>
         </Button>
