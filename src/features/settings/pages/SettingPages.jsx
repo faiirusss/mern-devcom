@@ -29,6 +29,7 @@ import {
 } from "../../../jotai/atoms";
 import { profileFormSchema } from "../../../schemas/profile";
 import { apiInstanExpress } from "../../../utils/apiInstance";
+import EditProfileFormInner from "../components/EditProfileFormInner";
 
 const SettingPage = () => {
   const form = useForm({
@@ -124,143 +125,135 @@ const SettingPage = () => {
           Connect GitHub Account
         </Button>
       </div>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleUpdateSetting)}>
-          {/* box user */}
-          <div className="bg-background mt-5 p-4 rounded-md">
-            <div className="space-y-4">
-              <h1 className="text-2xl font-bold">User</h1>
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Name</FormLabel>
-                    <FormControl>
-                      <Input placeholder="John Doe" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="email"
-                        placeholder="john.doe@example.com"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="username"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Username</FormLabel>
-                    <FormControl>
-                      <Input placeholder="johndoe" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <div className="space-y-6">
-                <Label htmlFor="picture">Profile image</Label>
-                <div className="flex items-center gap-4">
-                  <Avatar className="size-12">
-                    <AvatarImage
-                      src="https://github.com/shadcn.png"
-                      alt="@shadcn"
-                    />
-                    <AvatarFallback>CN</AvatarFallback>
-                  </Avatar>
-                  <Input id="picture" accept="image/*" type="file" />
-                </div>
+      <div className="bg-background mt-5 p-4 rounded-md">
+        <EditProfileFormInner />
+      </div>
+      <div>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(handleUpdateSetting)}>
+            {/* box user */}
+            <div className="bg-background mt-5 p-4 rounded-md">
+              <div className="space-y-4">
+                <h1 className="text-2xl font-bold">User</h1>
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Name</FormLabel>
+                      <FormControl>
+                        <Input placeholder="John Doe" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="email"
+                          placeholder="john.doe@example.com"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="username"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Username</FormLabel>
+                      <FormControl>
+                        <Input placeholder="johndoe" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               </div>
             </div>
-          </div>
 
-          {/* box basic */}
-          <div className="bg-background mt-5 p-4 rounded-md">
-            <div className="space-y-4">
-              <h1 className="text-2xl font-bold">Basic</h1>
-              <FormField
-                control={form.control}
-                name="websiteurl"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Website URL</FormLabel>
-                    <FormControl>
-                      <Input placeholder="https://yoursite.com" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="location"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Location</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Jakarta, Indonesia" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="bio"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Bio</FormLabel>
-                    <FormControl>
-                      <Textarea {...field} placeholder="A short bio..." />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+            {/* box basic */}
+            <div className="bg-background mt-5 p-4 rounded-md">
+              <div className="space-y-4">
+                <h1 className="text-2xl font-bold">Basic</h1>
+                <FormField
+                  control={form.control}
+                  name="websiteurl"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Website URL</FormLabel>
+                      <FormControl>
+                        <Input placeholder="https://yoursite.com" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="location"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Location</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Jakarta, Indonesia" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="bio"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Bio</FormLabel>
+                      <FormControl>
+                        <Textarea {...field} placeholder="A short bio..." />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
             </div>
-          </div>
 
-          {/* box button */}
-          <div
-            className="bg-background mt-5 p-4 rounded-md"
-            // className={`${
-            //   form.formState.isDirty
-            //     ? "absolute w-full bottom-0 bg-background mt-5 py-6 px-4 rounded-md"
-            //     : "bg-background mt-5 py-6 px-4 rounded-md"
-            // }`}
-          >
-            {isSubmit ? (
-              <Button disabled type="submit" className="w-full">
-                <Loader2 className="animate-spin" />
-                Please wait
-              </Button>
-            ) : (
-              <Button
-                disabled={!form.formState.isDirty}
-                type="submit"
-                className="w-full"
-              >
-                Save Profile Information
-              </Button>
-            )}
-          </div>
-        </form>
-      </Form>
+            {/* box button */}
+            <div
+              className="bg-background mt-5 p-4 rounded-md"
+              // className={`${
+              //   form.formState.isDirty
+              //     ? "absolute w-full bottom-0 bg-background mt-5 py-6 px-4 rounded-md"
+              //     : "bg-background mt-5 py-6 px-4 rounded-md"
+              // }`}
+            >
+              {isSubmit ? (
+                <Button disabled type="submit" className="w-full">
+                  <Loader2 className="animate-spin" />
+                  Please wait
+                </Button>
+              ) : (
+                <Button
+                  disabled={!form.formState.isDirty}
+                  type="submit"
+                  className="w-full"
+                >
+                  Save Profile Information
+                </Button>
+              )}
+            </div>
+          </form>
+        </Form>
+      </div>
     </>
   );
 };
