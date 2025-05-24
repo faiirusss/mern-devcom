@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Avatar,
   AvatarFallback,
@@ -33,6 +33,13 @@ const EditProfileFormInner = ({ profile }) => {
     }
   };
 
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    setProfilePictureStorage(picture);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [picture]);
+
   const selectedProfilePicturePreview = useMemo(() => {
     if (selectedImage) {
       return URL.createObjectURL(selectedImage);
@@ -56,7 +63,6 @@ const EditProfileFormInner = ({ profile }) => {
           }
         );
 
-        setProfilePictureStorage(picture);
         if (updateProfilePicture.status !== 201) {
           toast.error("Update profile picture failed", {
             position: "top-right",
@@ -103,12 +109,22 @@ const EditProfileFormInner = ({ profile }) => {
           id="picture"
           accept="image/*"
           type="file"
+          ref={inputRef}
           onChange={onPickProfilePicture}
           className="cursor-pointer border p-[7px] w-full rounded-md text-sm"
         />
         {!!selectedImage && (
           <>
-            <Button variant="destructive" className="cursor-pointer">
+            <Button
+              variant="destructive"
+              className="cursor-pointer"
+              onClick={() => {
+                setSelectedImage(null);
+                if (inputRef.current) {
+                  inputRef.current.value = null;
+                }
+              }}
+            >
               <Trash />
             </Button>
             {isSubmit ? (
