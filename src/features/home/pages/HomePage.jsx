@@ -15,11 +15,11 @@ const HomePage = () => {
   const [username] = useAtom(usernameStorage);
   return (
     <PageContainer withFooter={false}>
-      <SectionContainer className="py-4">
+      <SectionContainer className="md:py-4">
         <main className="">
-          <div className="grid grid-cols-1 md:grid-cols-[1fr_3.4fr_1.6fr] gap-4 max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-[1.7fr_4.3fr] lg:grid-cols-[1.5fr_3fr_1.5fr] xl:grid-cols-[1.2fr_3.2fr_1.6fr] gap-4 max-w-7xl mx-auto md:px-2">
             {/* left side */}
-            <section className="">
+            <section className="hidden md:block">
               <div className="">
                 <NavLink
                   to="/settings/profile"
@@ -210,7 +210,7 @@ const HomePage = () => {
             </section>
 
             {/* right side */}
-            <section className="space-y-4">
+            <section className="space-y-4 hidden lg:block">
               <div className="bg-background rounded-md py-4">
                 <h1 className="font-bold text-lg px-4">Active discussions</h1>
                 <Separator className="w-full my-3" />
