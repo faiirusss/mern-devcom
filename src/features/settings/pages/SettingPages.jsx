@@ -111,6 +111,7 @@ const SettingPage = () => {
           window.location.reload();
         }, 3000);
       } catch (error) {
+        setIsSubmit(false);
         console.log(error);
       }
     }
@@ -126,7 +127,7 @@ const SettingPage = () => {
         </Button>
       </div>
       <div className="bg-background mt-5 p-4 rounded-md">
-        <EditProfileFormInner />
+        <EditProfileFormInner profile={profile} />
       </div>
       <div>
         <Form {...form}>
