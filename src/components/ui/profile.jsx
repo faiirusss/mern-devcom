@@ -12,10 +12,13 @@ import {
 } from "../ui/dropdown-menu";
 import { Button } from "./button";
 import { useAtom } from "jotai";
-import { usernameStorage } from "../../jotai/atoms";
+import { createdAt, profilePicture, usernameStorage } from "../../jotai/atoms";
 
 const Profile = ({ setToken, setEmailStorage, user }) => {
   const [username, setUsername] = useAtom(usernameStorage);
+  const [, setCreatedAt] = useAtom(createdAt);
+  const [, setProfilePicture] = useAtom(profilePicture);
+  const [profilePictureStorage] = useAtom(profilePicture);
   const navigate = useNavigate();
 
   return (
@@ -23,10 +26,7 @@ const Profile = ({ setToken, setEmailStorage, user }) => {
       <DropdownMenuTrigger asChild>
         <Button variant="disable" size={"icon"}>
           <Avatar>
-            <AvatarImage
-              src={user.photoURL ?? "https://github.com/shadcn.png"}
-              alt={user.email ?? ""}
-            />
+            <AvatarImage src={profilePictureStorage ?? ""} alt={""} />
             <AvatarFallback>{user.email?.[0].toUpperCase()}</AvatarFallback>
           </Avatar>
         </Button>
@@ -53,6 +53,8 @@ const Profile = ({ setToken, setEmailStorage, user }) => {
               setToken(null);
               setEmailStorage(null);
               setUsername(null);
+              setProfilePicture(null);
+              setCreatedAt(null);
               navigate("/");
             });
           }}

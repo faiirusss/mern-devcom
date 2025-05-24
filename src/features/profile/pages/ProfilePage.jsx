@@ -15,6 +15,7 @@ import { Button } from "../../../components/ui/button";
 import {
   createdAt,
   emailStorageAtom,
+  profilePicture,
   tokenAtom,
   usernameStorage,
 } from "../../../jotai/atoms";
@@ -25,6 +26,8 @@ const ProfilePage = () => {
   const [emailStorage] = useAtom(emailStorageAtom);
   const [token] = useAtom(tokenAtom);
   const [createdAtAtom] = useAtom(createdAt);
+  const [profilePictureStorage] = useAtom(profilePicture);
+
   const [profile, setProfile] = useState([]);
   const [moreInfo, setMoreInfo] = useState(false);
 
@@ -52,8 +55,8 @@ const ProfilePage = () => {
       <PageContainer withFooter={false}>
         <div className="bg-foreground w-full h-10 md:h-32 relative md:px-2">
           <Avatar className="absolute top-8 -translate-y-1/2 md:top-1/2 md:-translate-y-1/2 md:left-1/2 md:-translate-x-1/2 left-4 border-foreground border-4 md:border-8 size-16 md:size-32 z-10 mt-2">
-            <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-            <AvatarFallback>CN</AvatarFallback>
+            <AvatarImage src={profilePictureStorage ?? ""} alt="" />
+            <AvatarFallback>{emailStorage?.[0].toUpperCase()}</AvatarFallback>
           </Avatar>
           <SectionContainer
             padded

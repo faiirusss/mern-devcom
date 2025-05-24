@@ -8,7 +8,11 @@ import { Button } from "../../../components/ui/button";
 import { Label } from "../../../components/ui/label";
 import { Check, Loader2, Trash } from "lucide-react";
 import { useMemo } from "react";
-import { emailStorageAtom, tokenAtom } from "../../../jotai/atoms";
+import {
+  emailStorageAtom,
+  profilePicture,
+  tokenAtom,
+} from "../../../jotai/atoms";
 import { apiInstanExpress } from "../../../utils/apiInstance";
 import { toast } from "sonner";
 import { useAtom } from "jotai";
@@ -16,9 +20,12 @@ import { useAtom } from "jotai";
 const EditProfileFormInner = ({ profile }) => {
   const { picture } = profile;
   const [isSubmit, setIsSubmit] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+
   const [emailStorage] = useAtom(emailStorageAtom);
   const [token] = useAtom(tokenAtom);
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [profilePictureStorage, setProfilePictureStorage] =
+    useAtom(profilePicture);
 
   const onPickProfilePicture = (e) => {
     if (e.target.files) {
@@ -34,7 +41,7 @@ const EditProfileFormInner = ({ profile }) => {
 
   const handleUpdateProfilePicture = async () => {
     setIsSubmit(true);
-    if (emailStorage && token) {
+    if (emailStorage && token && selectedImage) {
       const formData = new FormData();
       formData.append("image", selectedImage);
       formData.append("email", emailStorage);
@@ -49,6 +56,7 @@ const EditProfileFormInner = ({ profile }) => {
           }
         );
 
+        setProfilePictureStorage(picture);
         if (updateProfilePicture.status !== 201) {
           toast.error("Update profile picture failed", {
             position: "top-right",
@@ -66,7 +74,7 @@ const EditProfileFormInner = ({ profile }) => {
 
         setTimeout(() => {
           window.location.reload();
-        }, 3000);
+        }, 2500);
       } catch (err) {
         setTimeout(() => {
           toast.error("Update profile picture failed!", {
@@ -86,8 +94,10 @@ const EditProfileFormInner = ({ profile }) => {
       </Label>
       <div className="flex items-center gap-4">
         <Avatar className="size-12">
-          <AvatarImage src={selectedProfilePicturePreview ?? picture ?? ""} />
-          <AvatarFallback>CN</AvatarFallback>
+          <AvatarImage
+            src={selectedProfilePicturePreview ?? profilePictureStorage ?? ""}
+          />
+          <AvatarFallback>{emailStorage?.[0].toUpperCase()}</AvatarFallback>
         </Avatar>
         <input
           id="picture"
