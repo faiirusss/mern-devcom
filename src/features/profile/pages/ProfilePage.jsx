@@ -20,6 +20,8 @@ import {
   usernameStorage,
 } from "../../../jotai/atoms";
 import { apiInstanExpress } from "../../../utils/apiInstance";
+import { ExternalLink, MapPinned } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const ProfilePage = () => {
   const [username] = useAtom(usernameStorage);
@@ -55,7 +57,11 @@ const ProfilePage = () => {
       <PageContainer withFooter={false}>
         <div className="bg-foreground w-full h-10 md:h-32 relative md:px-2">
           <Avatar className="absolute top-8 -translate-y-1/2 md:top-1/2 md:-translate-y-1/2 md:left-1/2 md:-translate-x-1/2 left-4 border-foreground border-4 md:border-8 size-16 md:size-32 z-10 mt-2">
-            <AvatarImage src={profilePictureStorage ?? ""} alt="" />
+            <AvatarImage
+              src={profilePictureStorage ?? ""}
+              alt=""
+              className="object-cover"
+            />
             <AvatarFallback>{emailStorage?.[0].toUpperCase()}</AvatarFallback>
           </Avatar>
           <SectionContainer
@@ -76,10 +82,31 @@ const ProfilePage = () => {
                 {username}
               </h1>
               <p>{profile.bio ? profile.bio : "404 bio not found"}</p>
-              <p className="text-sm mt-4 flex items-center gap-2 text-foreground/70">
-                <FaBirthdayCake size={20} /> Joined on {createdAtAtom}{" "}
+              <div className="flex text-foreground/70 text-sm gap-8 mt-4">
+                {profile.location ? (
+                  <p className="flex gap-2 items-center">
+                    <MapPinned size={20} />
+                    {profile.location}
+                  </p>
+                ) : (
+                  ""
+                )}
+                <p className=" flex items-center gap-2 ">
+                  <FaBirthdayCake size={20} /> Joined on {createdAtAtom}{" "}
+                </p>
+                {profile.websiteurl ? (
+                  <Link
+                    to={"https://www.fairuss.my.id"}
+                    className="flex items-center gap-2"
+                  >
+                    <ExternalLink size={20} />
+                    {profile.websiteurl}
+                  </Link>
+                ) : (
+                  ""
+                )}
                 <FaGithub size={20} />
-              </p>
+              </div>
             </div>
             <Button
               className={`${

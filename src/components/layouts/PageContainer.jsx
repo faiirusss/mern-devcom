@@ -1,13 +1,22 @@
 import { cn } from "@/lib/utils";
 import { Header } from "./Header";
+import HeaderPostPage from "../../features/post/components/HeaderPostpage";
 
 export const PageContainer = (
-  { className, children, withHeader = true, withFooter = true, ...props },
+  {
+    className,
+    children,
+    withHeader = true,
+    withFooter = true,
+    postPage = false,
+    ...props
+  },
   ref
 ) => {
   return (
     <div className="h-full w-full pt-14">
       {withHeader && <Header />}
+      {postPage && <HeaderPostPage />}
       <main ref={ref} className={cn("flex flex-col", className)} {...props}>
         {children}
       </main>

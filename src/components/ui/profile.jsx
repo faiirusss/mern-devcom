@@ -26,7 +26,11 @@ const Profile = ({ setToken, setEmailStorage, user }) => {
       <DropdownMenuTrigger asChild>
         <Button variant="disable" size={"icon"}>
           <Avatar>
-            <AvatarImage src={profilePictureStorage ?? ""} alt={""} />
+            <AvatarImage
+              src={profilePictureStorage ?? ""}
+              alt={""}
+              className="object-cover"
+            />
             <AvatarFallback>{user.email?.[0].toUpperCase()}</AvatarFallback>
           </Avatar>
         </Button>

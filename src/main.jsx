@@ -12,6 +12,7 @@ import RegisterPage from "./pages/Register";
 import HomePage from "./pages/Home";
 import ProfilePage from "./pages/Profile";
 import SettingPage from "./pages/Settings";
+import CreatePostPage from "./pages/Post";
 import { Toaster } from "sonner";
 import AccountPages from "./pages/Settings/Account";
 import SettingLayout from "./features/settings/components/SettingsLayout";
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
         element: <AccountPages />,
       },
     ],
+  },
+  {
+    path: "/new",
+    element: <CreatePostPage />,
   },
 ]);
 

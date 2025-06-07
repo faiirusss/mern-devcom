@@ -246,7 +246,7 @@ const SettingPage = () => {
                 <Button
                   disabled={!form.formState.isDirty}
                   type="submit"
-                  className="w-full"
+                  className="w-full cursor-pointer"
                 >
                   Save Profile Information
                 </Button>

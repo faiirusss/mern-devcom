@@ -62,7 +62,11 @@ export const Header = () => {
                 <Button className="block md:hidden" variant={"ghost"}>
                   <FaSearch />
                 </Button>
-                <Button className="hidden md:block">Create Post</Button>
+                <Link to={"/new"}>
+                  <Button className="hidden md:block cursor-pointer">
+                    Create Post
+                  </Button>
+                </Link>
                 <Button variant={"ghost"} size="icon">
                   <FaRegBell className="size-5" />
                 </Button>

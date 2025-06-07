@@ -102,6 +102,7 @@ const EditProfileFormInner = ({ profile }) => {
         <Avatar className="size-12">
           <AvatarImage
             src={selectedProfilePicturePreview ?? profilePictureStorage ?? ""}
+            className="object-cover"
           />
           <AvatarFallback>{emailStorage?.[0].toUpperCase()}</AvatarFallback>
         </Avatar>
