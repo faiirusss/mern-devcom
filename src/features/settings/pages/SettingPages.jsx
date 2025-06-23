@@ -5,11 +5,6 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaGithub } from "react-icons/fa";
 import { toast } from "sonner";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "../../../components/ui/avatar";
 import { Button } from "../../../components/ui/button";
 import {
   Form,
@@ -20,7 +15,6 @@ import {
   FormMessage,
 } from "../../../components/ui/form";
 import { Input } from "../../../components/ui/input";
-import { Label } from "../../../components/ui/label";
 import { Textarea } from "../../../components/ui/textarea";
 import {
   emailStorageAtom,
@@ -30,6 +24,8 @@ import {
 import { profileFormSchema } from "../../../schemas/profile";
 import { apiInstanExpress } from "../../../utils/apiInstance";
 import EditProfileFormInner from "../components/EditProfileFormInner";
+import { signInWithPopup } from "firebase/auth";
+import { auth, googleProvider, githubProvider } from "../../../utils/firebase";
 
 const SettingPage = () => {
   const form = useForm({
@@ -117,11 +113,19 @@ const SettingPage = () => {
     }
   };
 
+  const connectWithGithub = async () => {
+    try {
+      await signInWithPopup(auth, githubProvider);
+    } catch (error) {
+      alert(error);
+    }
+  };
+
   return (
     <>
       <h1 className="font-semibold text-xl">@{profile.username}</h1>
       <div className="bg-background mt-5 p-4 rounded-md">
-        <Button className="w-full cursor-pointer">
+        <Button onClick={connectWithGithub} className="w-full cursor-pointer">
           <FaGithub />
           Connect GitHub Account
         </Button>
